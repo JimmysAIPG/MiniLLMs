@@ -15,9 +15,14 @@ python dataset_cleaned.py
 python dataset_split.py
 ```
 
-2. 数据集加载管道搭建
+2. BPE训练与数据集加载管道搭建
 
-典型使用方法
+BPE训练使用方法：
+
+1）修改`ARROW_DATASET_DIR`指定为ARROW格式数据集的路径
+2）执行`python bpe_tokenizer_train_with_arrow.py`即可开始训练
+
+数据集加载的典型使用方法
 
 ```py
 train_streaming_dataset = StreamingOpenWebTextDataset(
@@ -41,3 +46,4 @@ train_data_loader = DataLoader(
     pin_memory=True # 如果使用 GPU，有助于加速数据传输 [13]
     )
 ```
+
