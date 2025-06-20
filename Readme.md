@@ -47,3 +47,31 @@ train_data_loader = DataLoader(
     )
 ```
 
+3. 模型搭建
+
+模型典型的搭建方式如下，可以参考`MiniLlmsModel.py`内的`main`方法
+
+```
+# 定义模型超参数
+num_layers = 12     # Decoder Block 的层数
+vocab_size = 25000  # 假设我们的词汇表大小为1000
+embed_dim = 768    # 嵌入维度
+num_heads = 12      # 注意力头的数量 (需要能整除embed_dim)
+ff_dim = embed_dim * 4 # 前馈网络内部维度 (通常是embed_dim的2到4倍)
+max_seq_len = 1024  # 模型能处理的最大序列长度 (用于位置编码)
+dropout_rate = 0.1 # Dropout比率
+padding_token_id = 0 # 假设 padding token 的 ID 是 0
+
+# 实例化模型
+model = DecoderOnlyTransformer(
+    num_layers=num_layers,
+    vocab_size=vocab_size,
+    embed_dim=embed_dim,
+    num_heads=num_heads,
+    ff_dim=ff_dim,
+    max_seq_len=max_seq_len,
+    dropout=dropout_rate,
+    padding_idx=padding_token_id,
+    tie_weights=True # 启用权重绑定，共享输入嵌入和输出投影权重
+)
+```
