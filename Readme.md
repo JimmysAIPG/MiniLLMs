@@ -145,5 +145,5 @@ USE_SCALER = True
 ```
 
 - bpe_tokenizer_from_arrow：BPE训练的词表，因为openwebtext数据集实在太大，不想从零开始的话，可以直接使用我的词表
-- 训练数据集我已经上传到云盘，训练数据我抽取了openwebtext数据集中10%的数据进行训练，训练数据3GB左右。如果觉得太大，可以在训练的时候在这个基础上再进行缩减。数据集下载链接：链接：https://pan.quark.cn/s/ff43cb317c6f 提取码：LC8T
+- 训练数据集我已经上传到云盘，训练数据我抽取了openwebtext数据集中10%的数据进行训练，训练数据3GB左右。如果觉得太大，可以在训练的时候在这个基础上再进行缩减。数据集下载链接：链接：https://pan.quark.cn/s/b0996f64e429 提取码：exUb
 
