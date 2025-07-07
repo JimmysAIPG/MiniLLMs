@@ -1,7 +1,7 @@
 
 对应的系列文章教程，请点[击这里](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzk3NTA5NzEyNw==&action=getalbum&album_id=4000680701623418884&subscene=159&subscene=&scenenote=https%3A%2F%2Fmp.weixin.qq.com%2Fs%2FkgWCru0daBA9q5lLkmtMWw&nolastread=1#wechat_redirect)进行查看，如果对我的文章以及后续内容感兴趣，可以扫码关注哦。
 
-1. 数据集清洗
+## 1. 数据集清洗
 
 分成两个代码脚本文件，一个是数据集清洗，一个是数据集采样切割，默认使用数据集为`OpenWebText`，脚本可直接运行
 
@@ -17,7 +17,7 @@ python dataset_cleaned.py
 python dataset_split.py
 ```
 
-2. BPE训练与数据集加载管道搭建
+## 2. BPE训练与数据集加载管道搭建
 
 BPE训练使用方法：
 
@@ -49,7 +49,7 @@ train_data_loader = DataLoader(
     )
 ```
 
-3. 模型搭建
+## 3. 模型搭建
 
 模型典型的搭建方式如下，可以参考`MiniLlmsModel.py`内的`main`方法
 
@@ -78,7 +78,7 @@ model = DecoderOnlyTransformer(
 )
 ```
 
-4. 搭建炼丹炉
+## 4. 搭建炼丹炉
 
 文件夹内我已经将之前编写的`dataset`类和`MiniLlmsModel`模型类一同复制过来，可以根据自己的需要修改`train_pretrain`脚本中的参数，然后直接通过如下指令运行，进行模型训练。
 
@@ -145,5 +145,29 @@ USE_SCALER = True
 ```
 
 - bpe_tokenizer_from_arrow：BPE训练的词表，因为openwebtext数据集实在太大，不想从零开始的话，可以直接使用我的词表
+- 训练数据集我已经上传到云盘，训练数据我抽取了openwebtext数据集中10%的数据进行训练，训练数据3GB左右。如果觉得太大，可以在训练的时候在这个基础上再进行缩减。数据集下载链接：链接：https://pan.quark.cn/s/b0996f64e429 提取码：exUb
+
+训练出模型后，可以使用`minillms_inference.py`文件进行推理，如下是使用举例：
+
+```bash
+python minillms_inference.py --checkpoint logs/checkpoints_bf16_1/best_model.pt  --max-new-tokens 500 --prompt "machine learning "
+```
+
+## 5. 升级版模型
+
+相对于`3.模型搭建`文件夹内的模型，主要做了以下提升和改进：
+
+- 用 RMSNorm 替换 LayerNorm，为计算减负。
+- 用 RoPE 替换绝对位置编码，赋予模型更好的长文本理解能力。
+- 用 SwiGLU 替换标准 FFN，让信息流动更智能。
+- 用 GQA 和 FlashAttention 彻底重构了注意力层，打破了性能和内存的双重瓶颈。
+
+**启动训练：**
+
+```sh
+python train_pretrain_v2.py
+```
+
+- bpe_tokenizer_from_arrow：BPE训练的词表，因为openwebtext数据集实在太大，不想从零开始的话，可以直接使用我的词表，直接将`4.搭建炼丹炉`内的文件夹复制过来即可
 - 训练数据集我已经上传到云盘，训练数据我抽取了openwebtext数据集中10%的数据进行训练，训练数据3GB左右。如果觉得太大，可以在训练的时候在这个基础上再进行缩减。数据集下载链接：链接：https://pan.quark.cn/s/b0996f64e429 提取码：exUb
 
