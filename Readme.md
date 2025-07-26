@@ -171,3 +171,8 @@ python train_pretrain_v2.py
 - bpe_tokenizer_from_arrow：BPE训练的词表，因为openwebtext数据集实在太大，不想从零开始的话，可以直接使用我的词表，直接将`4.搭建炼丹炉`内的文件夹复制过来即可
 - 训练数据集我已经上传到云盘，训练数据我抽取了openwebtext数据集中10%的数据进行训练，训练数据3GB左右。如果觉得太大，可以在训练的时候在这个基础上再进行缩减。数据集下载链接：链接：https://pan.quark.cn/s/b0996f64e429 提取码：exUb
 
+## 6. SFT代码
+
+- sft_alpaca_dataset.py 数据集处理
+- sft_inference.py 用于加载sft训练后的模型并接受用户输入进行推理
+- sft_train_v2.py 用于对pretrain模型进行sft训练
